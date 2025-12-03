@@ -55,7 +55,7 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 | `1.Data_Reading_multiple.R` | **数据读取** | 批量读取 CellRanger 输出矩阵，创建 Seurat 对象 |
 | `2.Data_QC.R` | **质量控制 (QC)** | 计算线粒体/红细胞比例，过滤低质量细胞 |
 | `2.Data_Doublet_ Optional.R` | **去双细胞** | 使用 DoubletFinder 去除双细胞 (**可选**) |
-| `3.Data_Normalize.R` | **数据预处理** | 数据标准化 (LogNormalize)、高变基因查找、归一化 |
+| `3.Data_Normalize.R` | **数据预处理** | 数据标准化、高变基因查找、归一化 |
 | `3.Data_CellCycle_Optional.R` | **细胞周期** | 细胞周期评分与回归消除 (**可选**) |
 | `4.Dimensionality_Reduction.R` | **基础降维聚类** | 标准 PCA & UMAP/t-SNE 以及聚类(**适用于无批次效应数据**) |
 | `4.Dimensionality_Reduction_harmony.R`| **去批次降维聚类** | 使用 Harmony 进行多样本整合与去批次 (**可选**) |
@@ -63,3 +63,5 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 | `5.Auto_Annotation.R` | **自动注释** | 使用 SingleR 工具结合参考集自动注释 |
 
 ---
+
+🌟 感谢您看到这里。
