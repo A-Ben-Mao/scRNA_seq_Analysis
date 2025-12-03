@@ -1,5 +1,5 @@
 # 原始目录
-raw_dir <- "E:/scRNA-seq Analysis/raw_data/GSE302285_RAW"
+raw_dir <- "文件夹目录"
 
 # 获取所有文件
 files <- list.files(raw_dir, full.names = FALSE)
@@ -46,3 +46,4 @@ for (file in files) {
 }
 
 cat("文件整理完成！（原文件已保留）\n")
+
