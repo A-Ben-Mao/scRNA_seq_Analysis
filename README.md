@@ -10,7 +10,7 @@
 - 借助 AI（如 ChatGPT）优化代码结构与注释。  
 
 🙏 **感谢所有开源项目的贡献者们！**  
-希望本项目能帮助生信初学者理解标准分析流程，并继续传承开源精神。  
+希望本项目能帮助单细胞分析初学者理解标准分析流程，并继续传承开源精神。  
 
 ---
 
@@ -34,5 +34,32 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 | <img src="images/Bilibili_chongdian.png" width="300"/> | <img src="images/Wechat_zanshang.png" width="300"/> |
 
 </div>
+
+---
+
+## 📊 分析流程概览
+
+本项目的代码逻辑遵循以下标准单细胞分析工作流：
+
+![流程图](images/Flowchart.png)
+
+---
+
+## 📂 脚本功能详细说明
+
+建议按照编号顺序依次运行脚本。文件名中包含 `Optional` 的为可选步骤，视数据情况决定是否执行。
+
+| 脚本名称 | 功能简介 | 备注 |
+|:---|:---|:---|
+| `0.Sort_10X.R` | **数据整理** | 整理 10X 原始数据文件夹结构，以便批量读取 |
+| `1.Data_Reading_multiple.R` | **数据读取** | 批量读取 CellRanger 输出矩阵，创建 Seurat 对象 |
+| `2.Data_QC.R` | **质量控制 (QC)** | 计算线粒体/红细胞比例，过滤低质量细胞 |
+| `2.Data_Doublet_ Optional.R` | **去双细胞** | 使用 DoubletFinder 去除双细胞 (**可选**) |
+| `3.Data_Normalize.R` | **数据预处理** | 数据标准化 (LogNormalize)、高变基因查找、归一化 |
+| `3.Data_CellCycle_Optional.R` | **细胞周期** | 细胞周期评分与回归消除 (**可选**) |
+| `4.Dimensionality_Reduction.R` | **基础降维聚类** | 标准 PCA & UMAP/t-SNE 以及聚类(**适用于无批次效应数据**) |
+| `4.Dimensionality_Reduction_harmony.R`| **去批次降维聚类** | 使用 Harmony 进行多样本整合与去批次 (**可选**) |
+| `5.Annotation.R` | **手动注释** | 基于 Marker Gene 列表手动定义细胞类型 |
+| `5.Auto_Annotation.R` | **自动注释** | 使用 SingleR 工具结合参考集自动注释 |
 
 ---
