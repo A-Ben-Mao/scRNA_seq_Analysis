@@ -52,7 +52,7 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 | 脚本名称 | 功能简介 | 备注 |
 |:---|:---|:---|
 | `0.Sort_10X.R` | **数据整理** | 整理 10X 原始数据文件夹结构，以便批量读取 |
-| `1.Data_Reading_multiple.R` | **数据读取** | 批量读取 CellRanger 输出矩阵，创建 Seurat 对象 |
+| `1.Data_Reading_multiple.R` | **数据读取** | 多种方法读取scRNA-seq数据矩阵，创建 Seurat 对象 |
 | `2.Data_QC.R` | **质量控制 (QC)** | 计算线粒体/红细胞比例，过滤低质量细胞 |
 | `2.Data_Doublet_ Optional.R` | **去双细胞** | 使用 DoubletFinder 去除双细胞 (**可选**) |
 | `3.Data_Normalize.R` | **数据预处理** | 数据标准化、高变基因查找、归一化 |
