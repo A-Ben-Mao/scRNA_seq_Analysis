@@ -41,6 +41,8 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 
 本项目的代码逻辑遵循以下标准单细胞分析工作流：
 
+同时附上[完整思维导图](images/Mind_map.png)，搭配视频讲解风味更佳~
+
 ![流程图](images/Flowchart.png)
 
 ---
