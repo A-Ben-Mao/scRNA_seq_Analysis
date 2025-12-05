@@ -12,6 +12,7 @@
 # GSE165722
 
 # 加载R包
+# install.packages('Seurat')
 library(Seurat)
 library(data.table)
 library(stringr)
@@ -174,4 +175,5 @@ load(file ="文件名")
 sc_data = readRDS("文件名")
 
 # 保存Seurat对象
+
 saveRDS(sc_data, file = "Seurat_combined_r.rds")
