@@ -61,8 +61,8 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 | `3.Data_CellCycle_Optional.R` | **细胞周期** | 细胞周期评分与回归消除 (**可选**) |
 | `4.Dimensionality_Reduction.R` | **基础降维聚类** | 标准 PCA & UMAP/t-SNE 以及聚类(**适用于无批次效应数据**) |
 | `4.Dimensionality_Reduction_harmony.R`| **去批次降维聚类** | 使用 Harmony 进行多样本整合与去批次 (**可选**) |
-| `5.Annotation.R` | **手动注释** | 基于 Marker Gene 列表手动定义细胞类型 |
-| `5.Auto_Annotation.R` | **自动注释** | 使用 SingleR 工具结合参考集自动注释 |
+| `5.Annotation_Auto.R` | **自动注释** | 使用 SingleR 工具结合参考集自动注释 |
+| `5.Annotation_Manual.R` | **手动注释** | 基于 Marker Gene 列表手动定义细胞类型 |
 
 ---
 
