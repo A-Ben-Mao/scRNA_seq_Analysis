@@ -59,18 +59,6 @@ violin
 # ggsave("data_violin_before_qc.pdf", plot = violin, width = 14, height = 8) 
 dim(sc_data)
 
-# 查看数据分布特征
-# Feature
-quantile(sc_data$nFeature_RNA, seq(0.01, 0.1, 0.01))
-quantile(sc_data$nFeature_RNA, seq(0.9, 1, 0.01))
-# Count
-quantile(sc_data$nCount_RNA, seq(0.01, 0.1, 0.01))
-quantile(sc_data$nCount_RNA, seq(0.9, 1, 0.01))
-# 线粒体比例
-quantile(sc_data$percent.mt, seq(0.9, 1, 0.01))
-# 红细胞比例
-quantile(sc_data$percent.HB, seq(0.9, 1, 0.01))
-
 #### 设置质控标准 ####
 # 1. 下限 (固定值，去除空液滴)
 minGene = 200
