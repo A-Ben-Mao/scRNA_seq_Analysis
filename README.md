@@ -55,7 +55,8 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 |:---|:---|:---|
 | `0.Sort_10X.R` | **数据整理** | 整理 10X 原始数据文件夹结构，以便批量读取 |
 | `1.Data_Reading_multiple.R` | **数据读取** | 多种方法读取scRNA-seq数据矩阵，创建 Seurat 对象 |
-| `2.Data_QC.R` | **质量控制 (QC)** | 计算线粒体/红细胞比例，过滤低质量细胞 |
+| `2.Data_QC.R` | **质量控制** | 计算线粒体/红细胞比例，过滤低质量细胞 |
+| `2.Data_QC_pct.R` | **质控（百分比版）** | 按照上限比例过滤低质量细胞，适用于样本间测序差异较大的数据 |
 | `2.Data_Doublet_ Optional.R` | **去双细胞** | 使用 DoubletFinder 去除双细胞 (**可选**) |
 | `3.Data_Normalize.R` | **数据预处理** | 数据标准化、高变基因查找、归一化 |
 | `3.Data_CellCycle_Optional.R` | **细胞周期** | 细胞周期评分与回归消除 (**可选**) |
