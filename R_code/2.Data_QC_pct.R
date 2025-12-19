@@ -83,7 +83,7 @@ for(sid in sample_ids){
   # 提取当前样本的数据
   current_meta <- sc_data@meta.data[sc_data$orig.ident == sid, ]
   
-  # 计算该样本特定的上限阈值 (关键修改点：分别使用不同的百分比参数)
+  # 计算该样本特定的上限阈值
   maxGene_sample <- quantile(current_meta$nFeature_RNA, probs = high_quantile_gene)
   maxUMI_sample  <- quantile(current_meta$nCount_RNA,   probs = high_quantile_umi)
   
@@ -100,13 +100,13 @@ for(sid in sample_ids){
   # 将好细胞加入名单
   cells_to_keep <- c(cells_to_keep, good_cells)
   
-  # 打印一下每个样本算出来的阈值
+  # 打印每个样本算出来的阈值
   print(paste0("样本 ", sid, 
                " | Gene上限(Top ", (1-high_quantile_gene)*100, "%): ", round(maxGene_sample), 
                " | UMI上限(Top ",  (1-high_quantile_umi)*100, "%): ", round(maxUMI_sample)))
 }
 
-# 最后执行一次性过滤
+# 将过滤后Seurat对象赋予sc_data
 sc_data <- subset(sc_data, cells = cells_to_keep)
 
 # 绘制质控后小提琴图（验证过滤效果）
