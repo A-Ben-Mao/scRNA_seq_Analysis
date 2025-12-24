@@ -74,6 +74,8 @@ saveRDS(sc_data,"Seurat_Normalize.rds")
 # 对测序深度的校正效果要好于log标准化(10万以内的细胞都建议使用SCT)
 # 寻找3000个高变基因
 # 相对的，该R包对配置（特别是内存）要求更高，且运行时间更长
+# 不多有对应加速SCT运算的R包
+# BiocManager::install("glmGamPoi")
 
 # 官方声明可以使用这个R包加速运行
 # 如果已安装，则默认使用该包
@@ -109,4 +111,5 @@ saveRDS(sc_data,"Seurat_Normalize_SCTchangeRNA.rds")
 # 不知是否和R包的版本相关
 # 若确实想用一个Seurat对象保存两种标准化，建议先SCT后切换assay进行Normalize
 # 否则推荐选择一种标准化方法进行全流程
+
 
