@@ -13,6 +13,8 @@
 # 其他数据类型同理，可借用AI修改代码
 # 整体原则：在读取数据后的merge和joinlayer之前，提取list中的对象进行去除双细胞
 
+# 完成这一步后再进行标准化，以及后续操作
+
 # 加载R包
 library(Seurat)
 library(data.table)
@@ -228,4 +230,5 @@ seurat_combined <- merge(seurat_list[[1]],
 sc_data = JoinLayers(seurat_combined)
 
 # 保存Seurat对象
+
 saveRDS(sc_data, file = "Seurat_combined.rds")
