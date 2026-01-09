@@ -63,7 +63,10 @@ UP 主：**[Broca区想发言](https://space.bilibili.com/3632308559022298)**
 | `4.Dimensionality_Reduction.R` | **基础降维聚类** | 标准 PCA & UMAP/t-SNE 以及聚类(**适用于无批次效应数据**) |
 | `4.Dimensionality_Reduction_harmony.R`| **去批次降维聚类** | 使用 Harmony 进行多样本整合与去批次 (**可选**) |
 | `5.Annotation_Auto.R` | **自动注释** | 使用 SingleR 工具结合参考集自动注释 |
-| `5.Annotation_Manual.R` | **手动注释** | 基于 Marker Gene 列表手动定义细胞类型 |
+| `5.Annotation_Manual.R` | **手动注释** | 基于 Marker Gene 列表进行人工细胞类型定义 |
+| `6.1 scRNA_DEG_by_Group.R` | **差异基因分析（组别）** | 在**同一细胞类型**中比较不同实验组/条件（如 Control vs Treatment）的差异基因 |
+| `6.2 scRNA_DEG_by_Subtype.R` | **差异基因分析（亚型）** | 在**同一大类细胞类型**内比较不同细胞亚型之间的差异表达 |
+| `7.DEG_GO_KEGG.R` | **功能富集分析** | 对差异基因进行 GO / KEGG 通路富集分析，解析生物学功能 |
 
 ---
 
