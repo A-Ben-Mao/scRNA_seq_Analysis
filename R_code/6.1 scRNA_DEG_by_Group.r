@@ -70,6 +70,9 @@ group_ctrl <- "Control"  # 对照组，注意修改
 result_dir <- "DEG_by_Group_results" 
 if (!dir.exists(result_dir)) dir.create(result_dir)
 
+# 初始化用于存储所有结果的大表（用于最后画图）
+r.deg <- data.frame()
+
 # 循环分析
 # 注意，此方法需要一个细胞类型中细胞数大于3，否则不会进行差异基因的计算
 # 不过如果细胞过少也没必要进行组间对比了，毕竟已经形成新的类型/亚型了
@@ -169,5 +172,6 @@ p <- jjVolcano(diffData = r.deg,
 # 输出与保存
 print(p)
 ggsave(file.path(result_dir, "Multigroup_Volcano_Plot.pdf"), plot = p, width = 12, height = 8)
+
 
 
