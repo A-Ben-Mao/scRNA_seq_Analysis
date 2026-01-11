@@ -6,7 +6,7 @@
 # 再完成了前面一些列初始的操作后，并完成了细胞注释
 # 接下来就可以开始下游的其他分析
 
-# 差异基因分析常用于一下两种情况
+# 差异基因分析常用于以下两种情况
 # 1.不同组别中同一细胞类型的差异表达
 #   如：药物干预 VS 对照、疾病 VS 正常，etc.
 # 2.同一细胞类型中不同亚型的差异表达
@@ -253,4 +253,5 @@ print(p_volcano)
 # 7. 保存图片
 plot_name <- paste0("Volcano_", ident_1, "_vs_", ident_2, ".pdf")
 ggsave(file.path(vs_dir, plot_name), plot = p_volcano, width = 8, height = 7)
+
 
