@@ -437,3 +437,4 @@ netVisual_embedding(cellchat, type = "structural", label.size = 3.5)
 #### 保存CellChat对象 ####
 saveRDS(cellchat, file = "cellchat_single.rds")
 
+
