@@ -59,13 +59,6 @@ data.input <- sc_data[["RNA"]]$data
 labels <- Idents(sc_data)
 meta <- data.frame(labels = labels, row.names = names(labels))
 
-# （可选）若只分析某一条件 / 样本
-# 提取特定列的特定行
-# 比如这里是“group“列的所有“疾病”行
-# cells.use <- rownames(sc_data@meta.data)[sc_data$group == "disease"]
-# data.input <- data.input[, cells.use]
-# meta <- meta[cells.use, ]
-
 ##### 创建 CellChat 对象 #####
 # group.by 决定：CellChat 按什么细胞分组来推断通讯
 cellchat <- createCellChat(
@@ -436,5 +429,6 @@ netVisual_embedding(cellchat, type = "structural", label.size = 3.5)
 
 #### 保存CellChat对象 ####
 saveRDS(cellchat, file = "cellchat_single.rds")
+
 
 
