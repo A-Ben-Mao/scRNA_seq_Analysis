@@ -41,6 +41,8 @@ target_cluster <- "Excitatory"   # 根据研究进行修改
 # 提取基因
 input_gene_symbol <- markers %>% 
   filter(cluster == target_cluster) %>% 
+  filter(p_val_adj < 0.05) %>%          # 筛选显著的差异基因
+  filter(avg_log2FC > 0.25) %>%         # 筛选显著的差异基因
   pull(gene)
 
 # 转换 ID (Symbol -> Entrez ID)
