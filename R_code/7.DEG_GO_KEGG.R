@@ -18,6 +18,7 @@
 library(tidyverse)
 library(clusterProfiler)
 library(org.Hs.eg.db)
+# library(org.Mm.eg.db) # 若是小鼠数据
 library(enrichplot)
 
 # 设置工作目录
@@ -46,7 +47,7 @@ input_gene_symbol <- markers %>%
 gene_map <- bitr(input_gene_symbol, 
                  fromType = "SYMBOL", 
                  toType   = "ENTREZID", 
-                 OrgDb    = org.Hs.eg.db)
+                 OrgDb    = org.Hs.eg.db) # 若是小鼠修改为：org.Mm.eg.db
 gene_entrez <- gene_map$ENTREZID
 
 #### 4. GO 富集分析 (Gene Ontology) ####
@@ -54,7 +55,7 @@ message("--- 正在进行 GO 分析 ---")
 
 # 核心分析代码
 ego <- enrichGO(gene          = gene_entrez,
-                OrgDb         = org.Hs.eg.db,
+                OrgDb         = org.Hs.eg.db, # 若是小鼠修改为：org.Mm.eg.db
                 ont           = "ALL",      # "BP", "CC", "MF" 或 "ALL"
                 pAdjustMethod = "BH",
                 pvalueCutoff  = 1,
