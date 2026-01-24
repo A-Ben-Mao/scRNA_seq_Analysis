@@ -96,7 +96,6 @@ message("--- 正在进行 KEGG 分析 ---")
 
 # 需要联网分析，可能由于网络原因报错，可多尝试几次
 # 下列代码可能在一定程度上解决 KEGG 网络问题
-# R.utils::setOption("clusterProfiler.download.method",'auto')
 options(timeout = 99999) # 延长网络连接时间
 
 # 核心代码
