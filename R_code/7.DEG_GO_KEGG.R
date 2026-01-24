@@ -37,8 +37,8 @@ print(unique(markers$cluster))
 # 输入你想分析的 Cluster
 target_cluster <- "Excitatory"   # 根据研究进行修改
 
-#### 3. 提取基因与 ID 转换 ####
-# 提取基因
+#### 3. 提取显著基因与 ID 转换 ####
+# 提取显著基因
 input_gene_symbol <- markers %>% 
   filter(cluster == target_cluster) %>% 
   filter(p_val_adj < 0.05) %>%          # 筛选显著的差异基因
