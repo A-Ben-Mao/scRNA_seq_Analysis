@@ -108,7 +108,7 @@ ekegg <- enrichKEGG(gene         = gene_entrez,
                     qvalueCutoff = 1)
 
 # ID 翻译回 Symbol
-ekegg <- setReadable(ekegg, OrgDb = org.Hs.eg.db, keyType = "ENTREZID")
+ekegg <- setReadable(ekegg, OrgDb = org.Hs.eg.db, keyType = "ENTREZID") # 选择对应物种，小鼠需要切换为Mu
 
 # 保存原始结果
 kegg_res <- as.data.frame(ekegg)
