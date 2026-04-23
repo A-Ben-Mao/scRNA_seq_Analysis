@@ -45,7 +45,7 @@ table(Idents(sc_data))
 
 # （可选）若样本分组分析，则需每一组单独进行
 # 定义疾病组的样本ID
-disease_pattern <- "GSM5724024_TLE_1|GSM5724025_TLE_2|GSM5724026_TLE_3|GSM6893725_TLE_4"
+disease_pattern <- "aaaaa|bbbbb|ccccc|ddddd"
 # 新增 group 列，并判断组别
 sc_data$group <- ifelse(grepl(disease_pattern, sc_data$orig.ident), "Disease", "Control")
 # 设置为因子(Factor)类型数据
