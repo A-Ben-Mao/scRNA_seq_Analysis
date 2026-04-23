@@ -17,18 +17,19 @@ library(patchwork)
 setwd("文件目录")
 
 # 读取已经经过细胞注释的Seurat对象
-sc_data <- readRDS("E:\\scRNA-seq Analysis\\data\\Seurat_celltype.rds")
+sc_data <- readRDS("Seurat_celltype.rds")
+
+# 设置细胞类型信息
+Idents(sc_data) <- "celltype.3rd" # 输入细胞注释列的列名，注意修改
 
 # 查看当前 Idents，以及有哪些细胞类型
 head(Idents(sc_data))
 table(Idents(sc_data))
 
-# 设置细胞类型信息
-Idents(sc_data) <- "celltype.3rd" # 输入细胞注释列的列名，注意修改
-
-# 由于原始的数据较大，运算时间较长，现提取部分数据进行演示
+# 查看数据规格
 dim(sc_data)
 
+# （可选）由于原始的数据较大，运算时间较长，可提取部分数据进行测试
 set.seed(123)
 library(dplyr)
 meta <- sc_data@meta.data
@@ -37,12 +38,35 @@ sampled_cells <- meta %>%
   group_by(celltype.3rd) %>%
   slice_sample(n = 500) %>% # 每种类型随机抽500个，不够的就全取
   pull(cell_id)
-
 # 生成子集
 sc_data <- subset(sc_data, cells = sampled_cells)
 dim(sc_data)
 table(Idents(sc_data))
 
+# （可选）若样本分组分析，则需每一组单独进行
+# 定义疾病组的样本ID
+disease_pattern <- "GSM5724024_TLE_1|GSM5724025_TLE_2|GSM5724026_TLE_3|GSM6893725_TLE_4"
+# 新增 group 列，并判断组别
+sc_data$group <- ifelse(grepl(disease_pattern, sc_data$orig.ident), "Disease", "Control")
+# 设置为因子(Factor)类型数据
+sc_data$group <- factor(sc_data$group, levels = c("Control", "Disease"))
+# 查看分组结果
+print(table(sc_data$orig.ident, sc_data$group))
+print(table(sc_data$group))
+# 提取子集
+sc_control <- subset(sc_data, group == "Control")
+sc_disease <- subset(sc_data, group == "Disease")
+# 保存子集
+saveRDS(sc_control, file = "sc_control_seurat.rds")
+saveRDS(sc_disease, file = "sc_disease_seurat.rds")
+# 释放内存
+rm(list = ls())
+gc()
+# 加载子集
+sc_data <- readRDS("sc_control_seurat.rds")
+# sc_data <- readRDS("sc_disease_seurat.rds")
+
+#### 数据准备 ####
 # 创建并切换到新工作目录
 output_dir <- "CellChat"
 if (!dir.exists(output_dir)) {
@@ -50,7 +74,6 @@ if (!dir.exists(output_dir)) {
 }
 setwd(output_dir)  # 切换工作目录到目标文件夹
 
-#### 数据准备 ####
 ##### 提取 CellChat 所需的两个核心对象 #####
 # 1. 提取表达矩阵
 data.input <- sc_data[["RNA"]]$data
@@ -66,6 +89,11 @@ cellchat <- createCellChat(
   group.by = "ident",   # 使用 Idents(sc_data)，其实就是不同的细胞类型
   assay    = "RNA"      # 使用 RNA assay 的 log-normalized data
 )
+
+# （补充）降低内存压力
+# 其实这一步之后就不再需要sc_data这个Dataframe了
+rm(sc_data)
+gc()
 
 ##### 设置配体-受体相互作用数据库 #####
 # CellChatDB 是什么
@@ -130,7 +158,7 @@ cellchat <- identifyOverExpressedInteractions(cellchat)
 # （补充）将基因表达数据投影到“蛋白质-蛋白质相互作用（PPI）网络”
 # 如果你的数据测序深度很低，这个功能可以填补配体或受体亚基的“假零值”
 # 默认不进行，若初次运行结果较少，或者没有满意的相互作用，可以补充运行
-# cellchat <- projectData(cellchat, PPI.human)
+# cellchat <- smoothData(cellchat, PPI.human)
 
 #### 推断细胞间通讯网络 ####
 ##### 计算通信概率并推断蜂窝通信网络 #####
@@ -164,7 +192,8 @@ df.net <- subsetCommunication(cellchat)
 df.netP <- subsetCommunication(cellchat, slot.name = "netP")
 
 # 3. 提取制定细胞群的结果
-# levels(cellchat@idents)
+levels(cellchat@idents) # 查看细胞群序号
+
 df.net <- subsetCommunication(
   cellchat,
   sources.use = c(1,2), # 从细胞群1、2发出
@@ -259,7 +288,7 @@ netVisual_heatmap(cellchat, signaling = pathways.show, color.heatmap = "Reds")
 # levels(cellchat@idents)
 group.cellType <- c(rep("FIB", 4), rep("DC", 4), rep("TC", 4)) 
 names(group.cellType) <- levels(cellchat@idents)
-netVisual_chord_cell(cellchat, signaling = pathways.show, group = group.cellType, title.name = ...)
+netVisual_chord_cell(cellchat, signaling = pathways.show, group = group.cellType, title.name = paste0(pathways.show, " signaling network"))
 
 ##### 单个配体-受体对的可视化 #####
 # 贡献度柱状图
@@ -269,7 +298,7 @@ netAnalysis_contribution(cellchat, signaling = pathways.show)
 # 1. 提取 CXCL 通路下所有显著的 L-R 对
 pairLR.CXCL <- extractEnrichedLR(cellchat, signaling = pathways.show, geneLR.return = FALSE)
 
-# 2. 选取第一对（例如 CXCL12-CXCR4）
+# 2. 选取第一对
 LR.show <- pairLR.CXCL[1,] 
 
 # 3. 针对这一对画图
@@ -388,7 +417,7 @@ library(ggalluvial)
 selectK(cellchat, pattern = "outgoing")
 
 # 寻找 Cophenetic 和 Silhouette 指标突然下降的前一个点
-nPatterns = 4
+nPatterns = 3
 cellchat <- identifyCommunicationPatterns(cellchat, pattern = "outgoing", k = nPatterns)
 
 # 桑基图与点图可视化
@@ -400,7 +429,7 @@ netAnalysis_dot(cellchat, pattern = "outgoing")
 selectK(cellchat, pattern = "incoming")
 
 # 寻找参数
-nPatterns = 3
+nPatterns = 5
 cellchat <- identifyCommunicationPatterns(cellchat, pattern = "incoming", k = nPatterns)
 
 # 桑基图与点图可视化
@@ -412,8 +441,8 @@ netAnalysis_dot(cellchat, pattern = "incoming")
 # 下载必要的Python umap-learn包
 # 安装并加载 reticulate 包
 # install.packages("reticulate")
-# library(reticulate)
-# py_install("umap-learn", pip = TRUE)
+library(reticulate)
+py_install("umap-learn", pip = TRUE)
 
 # 1. 功能相似性
 cellchat <- computeNetSimilarity(cellchat, type = "functional")
@@ -429,6 +458,4 @@ netVisual_embedding(cellchat, type = "structural", label.size = 3.5)
 
 #### 保存CellChat对象 ####
 saveRDS(cellchat, file = "cellchat_single.rds")
-
-
 
