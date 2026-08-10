@@ -134,7 +134,7 @@ my_tile_col <- colorRampPalette(c("#E64B35FF", "#4DBBD5FF", "#00A087FF",
                                   "#91D1C2FF", "#DC0000FF", "#7E6148FF"))(n_types)
 
 # 绘图
-p <- jjVolcano(diffData = r.deg, 
+p <- jjVolcano(diffData = s.deg, 
                tile.col = my_tile_col,     # 背景色
                pSize = 0.4,                # 散点大小
                legend.position = c(0.1, 0.9), 
