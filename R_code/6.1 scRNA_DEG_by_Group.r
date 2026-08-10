@@ -155,7 +155,7 @@ base_colors <- c("#ec8324","#057c4f","#b7183a","#03957b","#16adc2",
 my_tile_col <- colorRampPalette(base_colors)(n_types)
 
 # 绘图
-p <- jjVolcano(diffData = r.deg, 
+p <- jjVolcano(diffData = s.deg, 
                tile.col = my_tile_col,     # 设置每个cluster的背景色
                pSize = 0.4,                # 基因点的大小
                legend.position = c(0.1, 0.9), 
